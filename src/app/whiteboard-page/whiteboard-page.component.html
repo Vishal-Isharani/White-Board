@@ -1,0 +1,58 @@
+<div class="row">
+    <button mat-raised-button [color]='selectedButton["circle"] ? "primary":""' (click)='setSelection("circle"); addShape("circle")'>Circle</button>
+    <button mat-raised-button [color]='selectedButton["rectangle"] ? "primary":""' (click)='setSelection("rectangle"); addShape("rectangle")'>Rectangle</button>
+    <button mat-raised-button [color]='selectedButton["line"] ? "primary":""' (click)='clearSelection(); setSelection("line"); addShape("line"); erase = false'>Pen</button>
+    <button mat-raised-button [color]='selectedButton["text"] ? "primary":""' (click)='setSelection("text"); addShape("text")'>Text</button>
+    <button mat-raised-button [color]='selectedButton["undo"] ? "primary":""' (click)='clearSelection(); setSelection("undo"); undo()'>Undo</button>
+    <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""' (click)='clearSelection(); setSelection("erase"); erase = true'>Erase</button>
+    <button mat-raised-button [color]='selectedButton["clear"] ? "primary":""' (click)='clearSelection();clearBoard();setSelection("clear")'>Clear</button>
+    <button mat-raised-button [color]='selectedButton["addImage"] ? "primary":""' (click)='addImage();setSelection("addImage")'>Add Image</button>
+    <button mat-raised-button [color]='selectedButton["json"] ? "primary":""' (click)='exportAsJson();setSelection("json")'>Save as Json</button>
+    <button mat-raised-button [color]='selectedButton["exportImage"] ? "primary":""' (click)='exportAsImage();setSelection("exportImage")'>Save as Image</button>
+    <button mat-raised-button [color]='selectedButton["fromJson"] ? "primary":""' (click)='loadFromJson();setSelection("fromJson")'>Load from Json</button>
+</div>
+
+<div class="container">
+    <div id="editor-container"></div>
+    <div class="property-bar-container" *ngIf="selectedElement">
+
+        <div class="element">
+            <div class="element-header">
+                {{ selectedElementType }}
+            </div>
+
+            <div class="element-property-container">
+                
+                <div class="element-property-inner-container">
+                    <ng-container>
+                        <label>{{ selectedElementType !== 'Text' ? 'Color' : 'Font Color'}}</label>
+                        <ng-container>  
+                            <span class="color" [style.background]="color" *ngFor="let color of colors" (click)="setColor(color)"></span>
+                        </ng-container>
+                    </ng-container>
+                </div>
+
+                <ng-container *ngIf="selectedElementType === 'Text'">
+                    <div class="element-property-inner-container">
+                        <span class="color" (click)="setTextStyle('bold')">Bold</span>
+                        <span class="color" (click)="setTextStyle('italic')">Italic</span>
+                        <span class="color" (click)="setTextDecoration('underline')">Underline</span>
+                    </div>
+
+                    <div class="element-property-inner-container">
+                        <label>Font Size</label>
+                        <select (change)="setFontSize($event.target)">
+                            <option [value]="size" *ngFor="let size of fontSize">{{ size }}</option>
+                        </select>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+    
+</div>
+    <input type="file"
+        hidden
+           id="file"
+           (change)="handleFileInput($event.target)">
+

@@ -1,0 +1,42 @@
+button {
+  margin: 5px;
+}
+
+.row {
+  background-color: lightgray;
+  padding: 10px;
+}
+
+.container {
+  display: flex;
+
+  .property-bar-container {
+    width: 100%;
+    border: 1px solid black;
+
+    .element {
+      .element-header {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid;
+      }
+
+      .element-property-container {
+        .element-property-inner-container {
+          display: flex;
+          justify-content: space-around;
+
+          span.color {
+            height: 15px;
+            width: 15px;
+            display: block;
+            margin: 5px 5px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
